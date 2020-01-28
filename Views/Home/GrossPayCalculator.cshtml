@@ -1,0 +1,44 @@
+﻿
+@{
+    var totalMessage = "";
+    if (IsPost)
+    {
+        var num1 = Request["hours"];
+        var hrs = num1.AsInt();
+        var num2 = Request["pay"];
+        var payRate = num2.AsInt();
+        var grossPay = 0.00;
+        var overtime = 0.00;
+        var regPay = 0.00;
+        if (hrs > 40)
+        {
+            regPay = 40.0 * payRate;
+            overtime = (hrs - 40.0) * (1.5 * payRate);
+        }
+        else
+        {
+            regPay = hrs * payRate;
+        }
+        grossPay = regPay + overtime;
+
+        totalMessage = "Gross Pay= $" + grossPay;
+    }
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body style="background-color: beige; font-family: Verdana, Geneva, Tahoma, sans-serif">
+    <form action="" method="post">
+        <p>
+            <label for="hours">Hours Worked:</label><br/>
+            <input type="text" name="hours" value="" />
+        </p>
+        <p>
+            <label for="pay">Hours Pay:</label><br/>
+            <input type="text" name="pay" value="" />
+        </p>
+        <p><input type="submit" name="" value="Calculate Gross Pay" /></p>
+    </form>
+    <p>@totalMessage</p>
+</body>
+</html>
+
